@@ -7,18 +7,20 @@
   <link rel="stylesheet" href="CSS/style.css">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gradient-to-b from-gray-900 via-neutral-900 to-slate-900 text-gray-100 min-h-screen">
 
   <!-- Splash de abertura -->
   <div id="splash" class="fixed inset-0 flex items-center justify-center z-50" style="background-color: #110E23;">
-    <img src="images/CodeShelf-logo.jpeg" alt="Logo" id="splashLogo" class="w-40 h-40 object-contain opacity-0 scale-50">
+    <!-- 🔥 Caminho ajustado para funcionar no GitHub Pages -->
+    <img src="./images/CodeShelf-logo.jpeg" alt="Logo CodeShelf" id="splashLogo" class="w-40 h-40 object-contain opacity-0 scale-50">
   </div>
 
   <!-- Modal inicial -->
-  <div id="startModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
-    <div class="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-md">
-      <h2 class="text-2xl font-bold mb-2">Bem-vindo ao CodeShelf V2</h2>
-      <p class="text-sm text-gray-400 mb-4">
+  <div id="startModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-40">
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-md mx-3 sm:mx-0">
+      <h2 class="text-2xl font-bold mb-2 text-center">Bem-vindo ao <span class="text-indigo-400">CodeShelf V2</span></h2>
+      <p class="text-sm text-gray-400 mb-4 text-center">
         Digite o nome de um usuário do GitHub para explorar seus repositórios.
       </p>
       <form id="userForm" class="flex flex-col gap-3">
@@ -45,28 +47,27 @@
     </div>
   </header>
 
+  <!-- Filtros -->
+  <section id="repoFilters" class="hidden px-6 py-3 flex-wrap justify-center gap-2 text-sm">
+    <select id="languageFilter">
+      <option value="">Todas as linguagens</option>
+    </select>
+    <select id="sortFilter">
+      <option value="updated">Mais recentes</option>
+      <option value="name">Nome (A–Z)</option>
+      <option value="stars">Mais estrelados</option>
+      <option value="forks">Mais forks</option>
+    </select>
+  </section>
+
   <main id="mainContent" class="p-6">
     <div id="loading" class="hidden text-center text-gray-400 mt-10">Carregando...</div>
     <div id="error" class="hidden bg-red-900/40 border border-red-700 text-red-200 p-4 rounded-md"></div>
     <div id="userInfo" class="hidden mb-6"></div>
-
-    <!-- Filtros -->
-    <div id="repoFilters" class="flex gap-3 mb-4 hidden">
-      <select id="languageFilter" class="bg-gray-800/50 px-3 py-2 rounded-md text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-        <option value="">Todas as linguagens</option>
-      </select>
-      <select id="sortFilter" class="bg-gray-800/50 px-3 py-2 rounded-md text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-        <option value="name">Nome A-Z</option>
-        <option value="stars">Estrelas ↓</option>
-        <option value="forks">Forks ↓</option>
-        <option value="updated">Última atualização ↓</option>
-      </select>
-    </div>
-
     <div id="repoList" class="hidden"></div>
   </main>
 
-  <!-- Popup detalhado do repo -->
+  <!-- Popup detalhado -->
   <div id="repoPopup" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
     <div id="repoPopupContent" class="bg-gray-900 border border-gray-700 rounded-2xl p-6 max-w-xl w-full relative">
       <button id="closePopup" class="absolute top-3 right-3 text-gray-400 hover:text-white text-xl font-bold">&times;</button>
@@ -74,20 +75,23 @@
     </div>
   </div>
 
-  <!-- Popup de alterar imagem -->
+  <!-- Popup para alterar imagem -->
   <div id="changeImagePopup" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
-    <div class="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-md flex flex-col gap-4">
-      <h2 class="text-xl font-bold">Alterar Imagem do Repositório</h2>
-      <button id="uploadBtn" class="px-4 py-2 bg-indigo-600 rounded-md hover:brightness-110 transition">Selecionar arquivo</button>
-      <input id="urlInput" type="text" placeholder="Ou cole o link da imagem..."
-        class="bg-gray-800/50 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-200">
-      <div class="flex justify-end gap-2 mt-2">
-        <button id="cancelChange" class="px-3 py-2 bg-gray-700 rounded-md hover:brightness-110 transition">Cancelar</button>
-        <button id="confirmChange" class="px-3 py-2 bg-green-600 rounded-md hover:brightness-110 transition">Confirmar</button>
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-md mx-4 sm:mx-0">
+      <h2 class="text-xl font-semibold mb-3 text-center">Alterar imagem do repositório</h2>
+      <div class="flex flex-col gap-3">
+        <input id="urlInput" type="text" placeholder="URL da imagem (opcional)"
+          class="bg-gray-800/50 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-200">
+        <button id="uploadBtn" class="px-4 py-2 bg-indigo-600 rounded-md hover:brightness-110 transition">Enviar imagem</button>
+        <div class="flex gap-2 mt-2">
+          <button id="confirmChange" class="flex-1 px-4 py-2 bg-green-600 rounded-md hover:brightness-110 transition">Confirmar</button>
+          <button id="cancelChange" class="flex-1 px-4 py-2 bg-gray-700 rounded-md hover:brightness-110 transition">Cancelar</button>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Script principal -->
   <script src="JS/script.js"></script>
 </body>
 </html>
