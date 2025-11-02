@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeShelf V2 - Steam Ultra</title>
+  <link rel="stylesheet" href="CSS/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-gray-900 via-neutral-900 to-slate-900 text-gray-100 min-h-screen">
+
+  <!-- Splash de abertura -->
+  <div id="splash" class="fixed inset-0 flex items-center justify-center z-50" style="background-color: #110E23;">
+    <img src="images/CodeShelf-logo.jpeg" alt="Logo" id="splashLogo" class="w-40 h-40 object-contain opacity-0 scale-50">
+  </div>
+
+  <!-- Modal inicial -->
+  <div id="startModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-2">Bem-vindo ao CodeShelf V2</h2>
+      <p class="text-sm text-gray-400 mb-4">
+        Digite o nome de um usuário do GitHub para explorar seus repositórios.
+      </p>
+      <form id="userForm" class="flex flex-col gap-3">
+        <input id="usernameInput" type="text" placeholder="ex: torvalds"
+          class="bg-gray-800/50 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-200">
+        <button type="submit" class="px-4 py-2 bg-indigo-600 rounded-md hover:brightness-110 transition">
+          Carregar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-gray-800 gap-4 sm:gap-0">
+    <div>
+      <h1 class="text-2xl font-extrabold">CodeShelf <span class="text-indigo-400">V2</span></h1>
+      <p class="text-sm text-gray-400">Explore GitHub como uma biblioteca</p>
+    </div>
+    <div class="flex items-center gap-2 w-full sm:w-auto">
+      <input id="searchInput" type="text" placeholder="Buscar usuário GitHub..."
+        class="flex-1 bg-gray-800/60 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-500 text-gray-200">
+      <button id="searchBtn" type="button"
+        class="px-3 py-2 bg-indigo-600 rounded-md hover:brightness-110 transition">Pesquisar</button>
+    </div>
+  </header>
+
+  <main id="mainContent" class="p-6">
+    <div id="loading" class="hidden text-center text-gray-400 mt-10">Carregando...</div>
+    <div id="error" class="hidden bg-red-900/40 border border-red-700 text-red-200 p-4 rounded-md"></div>
+    <div id="userInfo" class="hidden mb-6"></div>
+
+    <!-- Filtros -->
+    <div id="repoFilters" class="flex gap-3 mb-4 hidden">
+      <select id="languageFilter" class="bg-gray-800/50 px-3 py-2 rounded-md text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="">Todas as linguagens</option>
+      </select>
+      <select id="sortFilter" class="bg-gray-800/50 px-3 py-2 rounded-md text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="name">Nome A-Z</option>
+        <option value="stars">Estrelas ↓</option>
+        <option value="forks">Forks ↓</option>
+        <option value="updated">Última atualização ↓</option>
+      </select>
+    </div>
+
+    <div id="repoList" class="hidden"></div>
+  </main>
+
+  <!-- Popup detalhado do repo -->
+  <div id="repoPopup" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
+    <div id="repoPopupContent" class="bg-gray-900 border border-gray-700 rounded-2xl p-6 max-w-xl w-full relative">
+      <button id="closePopup" class="absolute top-3 right-3 text-gray-400 hover:text-white text-xl font-bold">&times;</button>
+      <div id="popupContent"></div>
+    </div>
+  </div>
+
+  <!-- Popup de alterar imagem -->
+  <div id="changeImagePopup" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-md flex flex-col gap-4">
+      <h2 class="text-xl font-bold">Alterar Imagem do Repositório</h2>
+      <button id="uploadBtn" class="px-4 py-2 bg-indigo-600 rounded-md hover:brightness-110 transition">Selecionar arquivo</button>
+      <input id="urlInput" type="text" placeholder="Ou cole o link da imagem..."
+        class="bg-gray-800/50 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-200">
+      <div class="flex justify-end gap-2 mt-2">
+        <button id="cancelChange" class="px-3 py-2 bg-gray-700 rounded-md hover:brightness-110 transition">Cancelar</button>
+        <button id="confirmChange" class="px-3 py-2 bg-green-600 rounded-md hover:brightness-110 transition">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="JS/script.js"></script>
+</body>
+</html>

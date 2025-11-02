@@ -1,0 +1,228 @@
+/* Fonte geral */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #110E23;
+  color: #f1f5f9;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* ===================== GRID DE REPOS ===================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  transition: all 0.3s ease;
+  padding: 1rem;
+}
+
+/* ===================== CARD ===================== */
+.card {
+  background: linear-gradient(to bottom, rgba(31,41,55,0.6), rgba(17,24,39,0.9));
+  border: 1px solid #1f2937;
+  border-radius: 0.75rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+}
+.card.show { opacity: 1; transition: opacity 0.5s ease; }
+
+.card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  filter: brightness(1.05);
+}
+
+/* ===================== IMAGEM ===================== */
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  border-radius: 0.5rem;
+}
+.card:hover img {
+  transform: scale(1.07);
+  filter: brightness(1.1);
+}
+
+/* ===================== CARD FOOTER ===================== */
+.card-summary {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%;
+  background: rgba(17,24,39,0.9);
+  color: #f1f5f9;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.card-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===================== BARRA DE LINGUAGEM ===================== */
+.card-lang-bar-container {
+  background: #1f2937;
+  border-radius: 0.25rem;
+  height: 5px;
+  overflow: hidden;
+  margin-top: 0.35rem;
+}
+.card-lang-bar {
+  height: 100%;
+  width: 0%;
+  transition: width 0.8s ease;
+}
+
+/* ===================== POPUP ===================== */
+#repoPopup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+}
+
+#repoPopup.hidden { display: none; }
+
+#repoPopupContent {
+  background: rgba(31,41,55,0.95);
+  border-radius: 1rem;
+  border: 1px solid #2d3748;
+  padding: 1.25rem;
+  color: #e2e8f0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  width: 100%;
+  max-width: 550px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: popupEnter 0.25s ease-out;
+}
+
+@keyframes popupEnter {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+#repoPopupContent h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+#repoPopupContent img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ===================== POPUP BOTÕES ===================== */
+.popup-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.popup-buttons a {
+  flex: 1;
+  text-align: center;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: #f1f5f9;
+}
+
+.popup-buttons a.github { background-color: #6366f1; }
+.popup-buttons a.site { background-color: #10b981; }
+.popup-buttons a:hover { filter: brightness(1.15); }
+
+#closePopup {
+  position: absolute;
+  top: 0.6rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  color: #a5b4fc;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+#closePopup:hover { color: #fff; }
+
+/* ===================== SPLASH ===================== */
+#splash {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #110E23;
+  z-index: 100;
+}
+#splashLogo {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(0.5);
+}
+@keyframes logoZoomFade {
+  0%   { opacity: 0; transform: scale(0.5); }
+  50%  { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+#splashLogo.animate-logo { animation: logoZoomFade 1.6s forwards; }
+
+/* ===================== FILTROS ===================== */
+#repoFilters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+#repoFilters select {
+  background-color: rgba(31,41,55,0.8);
+  border: 1px solid #374151;
+  color: #f9fafb;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+#repoFilters select:hover {
+  background-color: rgba(55,65,81,0.9);
+}
+
+/* ===================== RESPONSIVIDADE ===================== */
+@media (max-width: 640px) {
+  #repoPopupContent {
+    padding: 1rem;
+    max-width: 95%;
+  }
+  #repoPopupContent h2 { font-size: 1.2rem; }
+  .popup-buttons a { font-size: 0.8rem; padding: 0.5rem; }
+  .card img { height: 140px; }
+  .grid { gap: 1rem; padding: 0.75rem; }
+}
+@media (max-width: 420px) {
+  .card-summary { font-size: 0.8rem; }
+  #repoFilters select { font-size: 0.85rem; padding: 0.35rem 0.6rem; }
+  #splashLogo { width: 120px; height: 120px; }
+}
