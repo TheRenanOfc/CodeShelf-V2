@@ -9,7 +9,7 @@
 
 ## Descrição
 
-**CodeShelf V2.5** é uma aplicação web front-end que transforma qualquer perfil público do GitHub em uma estante visual de repositórios, inspirada na interface da Steam Library.  
+**CodeShelf V2** é uma aplicação web front-end que transforma qualquer perfil público do GitHub em uma estante visual de repositórios, inspirada na interface da Steam Library.  
 
 Totalmente estática, sem backend ou autenticação, o projeto utiliza apenas HTML, CSS e JavaScript puro, com armazenamento local via `localStorage`. Ideal para portfólios, showcases ou visualização rápida de projetos.
 
